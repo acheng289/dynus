@@ -150,6 +150,8 @@ RUN echo 'alias cbps="roscd && colcon build --packages-select"' >> ~/.bashrc
 RUN echo 'alias tf_visualize="ros2 run rqt_tf_tree rqt_tf_tree"' >> ~/.bashrc
 RUN echo 'alias tks="tmux kill-server"' >> ~/.bashrc
 
+RUN cp /home/kkondo/code/dynus_ws/src/dynus/docker/dynus.sh .
+
 # Set up Entry Point
 # ##########################################
 # COPY ./dynus.sh /
