@@ -16,7 +16,7 @@ class StateGoalCollector(Node):
 
         queue_size = 10
         max_delay = 0.05
-        self.sync = ApproximateTimeSynchronizer([self.state_sub, self.goal_sub], queue_size)
+        self.sync = ApproximateTimeSynchronizer([self.state_sub, self.goal_sub], queue_size, max_delay)
         self.sync.registerCallback(self.sync_callback)
     
     def sync_callback(self, state_msg, goal_msg):
