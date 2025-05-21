@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
@@ -24,7 +26,7 @@ class StateGoalCollector(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = StateGoalCollector()
-    rclpu.spin(node)
+    rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
 
