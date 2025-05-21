@@ -15,7 +15,7 @@ class StateGoalCollector(Node):
         qos = QoSProfile(depth=10)
 
         queue_size = 10
-        max_delay = 0.05
+        max_delay = 0.5
         self.sync = ApproximateTimeSynchronizer([self.state_sub, self.goal_sub], queue_size, max_delay)
         self.sync.registerCallback(self.sync_callback)
     

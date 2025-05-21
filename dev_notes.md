@@ -7,3 +7,6 @@
 - if installing new stuff try to put at the end of docker file for the cache to speed up build
 - for base dynus launch, need to source /usr/share/gazebo/setup.bash
 - as of this line, this repo/docker combination works out of the box. after starting the container with `make run-sim`, run the single agent in forest via `bash ./dynus.sh`
+- to see ros2 topics, `export ROS_DOMAIN_ID = 7`, making all panes/terminals the same
+- fake_sim is the node that moves the drone! updated state is published every 10ms. how the state is updated is very simplistic in fake_sim, here the new state and velocity is taken to be that of the set point and orientation is a function of setpoint acceleration.
+- timesynced node/subscriber that listens on state, goal. but the next state and current state exist on the same topic!
