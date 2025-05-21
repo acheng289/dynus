@@ -139,6 +139,9 @@ def main():
     # Create a new detached tmux session.
     run_tmux(f"tmux new-session -d -s {session_name} -n {window_name}")
 
+    # Enable mouse support in tmux
+    run_tmux(f"tmux set-option -t {session_name} mouse on")
+
     # Send the base station command to pane 0.
     run_tmux(f"tmux send-keys -t {session_name}:0.0 '{base_station_cmd}' C-m")
 
