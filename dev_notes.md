@@ -6,3 +6,4 @@
 - dyn_obstacles.launch.py spawns multiple obstacles, can refer to it to see how we might spawn more than 1 agent. Note robot_state_publisher and spawn_entity
 - if installing new stuff try to put at the end of docker file for the cache to speed up build
 - for base dynus launch, need to source /usr/share/gazebo/setup.bash
+- as of this line, this repo/docker combination works out of the box. after starting the container with `make run-sim`, run the single agent in forest via `bash ./dynus.sh`
