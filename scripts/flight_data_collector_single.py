@@ -5,7 +5,7 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from geometry_msgs.msg import PoseStamped
 from dynus_interfaces.msg import Goal, State
-from message_filters import Subscriber, TimeSynchronizer
+from message_filters import Subscriber, ApproximateTimeSynchronizer
 
 class StateGoalCollector(Node):
     def __init__(self):
@@ -15,7 +15,8 @@ class StateGoalCollector(Node):
         qos = QoSProfile(depth=10)
 
         queue_size = 10
-        self.sync = TimeSynchronizer([self.state_sub, self.goal_sub], queue_size)
+        max_delay = 0.05
+        self.sync = ApproximateTimeSynchronizer([self.state_sub, self.goal_sub], queue_size)
         self.sync.registerCallback(self.sync_callback)
     
     def sync_callback(self, state_msg, goal_msg):
