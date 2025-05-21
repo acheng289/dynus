@@ -90,8 +90,8 @@ def main():
     env_cmd = env_cmds[env_name]
 
     # Common setup command for both panes.
-    user = getpass.getuser()        # e.g. 'kkondo'
-    setup_cmd = f"source /home/{user}/code/dynus_ws/install/setup.bash; export ROS_DOMAIN_ID=7;"
+    # user = getpass.getuser()        # e.g. 'kkondo'
+    setup_cmd = f"source /home/kkondo/code/dynus_ws/install/setup.bash; export ROS_DOMAIN_ID=7;"
 
     # use_dyn_obs
     if env_name in ["empty_wo_ground", "empty", "dynamic_debug"]:
