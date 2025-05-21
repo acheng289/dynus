@@ -17,6 +17,10 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -q -y --no-install-recommends git tmux vim wget tmuxp make
 
+# Interfacing with Windows through WSL2
+RUN apt install -y x11-apps
+RUN apt install -y qtbase5-dev-tools libqt5gui5 libqt5widgets5
+
 # Making directories and setting up the environment
 ##########################################
 WORKDIR /home
@@ -73,7 +77,8 @@ ENV LD_LIBRARY_PATH="${GUROBI_HOME}/lib"
 ##########################################
 RUN mkdir -p /home/kkondo/code/dynus_ws/src
 WORKDIR /home/kkondo/code/dynus_ws/src
-RUN git clone https://github.com/mit-acl/dynus.git
+# RUN git clone https://github.com/mit-acl/dynus.git
+RUN git clone https://github.com/averageandyyy/dynus.git
 WORKDIR /home/kkondo/code/dynus_ws/src/dynus
 WORKDIR /home/kkondo/code/dynus_ws/src
 RUN git clone https://kotakondo:${GIT_ACCESS_TOKEN}@github.com/kotakondo/dynus_interfaces.git
