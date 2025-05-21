@@ -205,6 +205,7 @@ install(PROGRAMS
   # scripts/convert_goal_to_cmd_vel.py
   # scripts/convert_vicon_to_state.py
   # scripts/convert_odom_to_state.py
+  scripts/flight_data_collector_single.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
