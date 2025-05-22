@@ -10,24 +10,20 @@ from message_filters import Subscriber, ApproximateTimeSynchronizer
 class StateGoalCollector(Node):
     def __init__(self):
         super().__init__("state_goal_collector")
-        self.state_sub = Subscriber(self, State, "state")
-        self.goal_sub = Subscriber(self, Goal, "goal")
-        qos = QoSProfile(depth=10)
-
-        queue_size = 10
-        max_delay = 0.05
-        self.sync = ApproximateTimeSynchronizer([self.state_sub, self.goal_sub], queue_size, max_delay)
-        self.sync.registerCallback(self.sync_callback)
+        self.state_sub = self.create_subscription(State, "state", self.state_callback, QoSProfile(depth=10))
+        self.prev_state = None
     
-    def sync_callback(self, state_msg, goal_msg):
-        state_sec = state_msg.header.stamp.sec
-        state_nano = state_msg.header.stamp.nanosec
-        goal_sec = goal_msg.header.stamp.sec
-        goal_nano = goal_msg.header.stamp.nanosec
-        self.get_logger().info(f"sync callback wit {state_sec} and {goal_sec}")
-        self.get_logger().info(f"sync callback wit {state_nano} and {goal_nano}")
-        self.get_logger().info(f"state:{state_msg}")
-        self.get_logger().info(f"goal:{goal_msg}")
+    def state_callback(self, incoming_state):
+        if self.prev_state is None:
+            self.prev_state = incoming_state
+            return
+        
+        delta_s = incoming_state.header.stamp.sec - self.prev_state.header.stamp.sec
+        delta_ns = incoming_state.header.stamp.nanosec - self.prev_state.header.stamp.nanosec
+        delta_t = delta_s + delta_ns * 1e-9
+
+        self.get_logger().info(f"Delta time: {delta_t:.6f} seconds")
+        self.prev_state = incoming_state
 
 def main(args=None):
     rclpy.init(args=args)
