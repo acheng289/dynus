@@ -14,3 +14,5 @@
 - for now, just pull dynus in container and rebuild before deving directly in container. abit cursed but ya.
 - need to think about reference control input. 
 - attaching volume to container with write permissions to collect data
+- as of this line, can run easy_forest with either `dynus.sh` or `tmuxp`
+- multiagent not running atm, likely due to some memory thing, should try next work day. the fix `--ipc=host` apparently is not secure but yet to try. alternative is `-v /dev/shm:/dev/shm`

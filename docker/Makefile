@@ -12,5 +12,5 @@ run-sim:
 				--env="QT_X11_NO_MITSHM=1" \
 				--volume=/tmp/.X11-unix:/tmp/.X11-unix \
 				--volume=${PWD}/gurobi.lic:/opt/gurobi/gurobi.lic:ro \
-				--ipc=host \
+				--volume=/dev/shm:/dev/shm \
 				--rm dynus:1
