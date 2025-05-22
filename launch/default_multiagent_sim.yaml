@@ -1,12 +1,16 @@
 session_name: multiagent_sim
+global_options:
+  mouse: true
 windows:
   - window_name: main
     layout: tiled
     shell_command_before:
+      - source /usr/share/gazebo/setup.bash
       - source /home/kkondo/code/dynus_ws/install/setup.bash # TODO: hard-coded path
+      - export ROS_DOMAIN_ID=7
     panes:
       # base station
-      - ros2 launch dynus base_dynus.launch.py use_dyn_obs:=false use_gazebo_gui:=false use_rviz:=true use_ground_robot:=false benchmark_name:=benchmark2
+      - ros2 launch dynus base_dynus.launch.py use_dyn_obs:=false use_gazebo_gui:=false use_rviz:=true use_ground_robot:=false benchmark_name:=benchmark2 env:=easy_forest
 
       - shell_command:
         - sleep 10
@@ -22,7 +26,7 @@ windows:
         # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=0.0 z:=2.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # forest3
         # - ros2 launch dynus onboard_dynus.launch.py x:=-30.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # yaw benchmarking in empty space
         # - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # global planner benchmarking
-        - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=20.0 z:=2.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
+        - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=-5.0 y:=6.0 z:=1.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # ACL_office
         # - ros2 launch dynus onboard_dynus.launch.py x:=-45.0 y:=0.0 z:=0.0 yaw:=0 namespace:=NX01 use_ground_robot:=true # ground robot
       # - shell_command:
@@ -36,24 +40,27 @@ windows:
       # NX02
       - shell_command:
         - sleep 10
-        - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=10.0 z:=2.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
+        - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=0.0 z:=2.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
       
       # NX03
       - shell_command:
-        - sleep 10
-        - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-0.0 z:=2.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
+        - sleep 15
+        # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-0.0 z:=2.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX03 use_obstacle_tracker:=true
+        - ros2 topic echo /NX01/mid360_PointCloud2
+
 
       # NX04
       - shell_command:
-        - sleep 10
-        - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-10.0 z:=2.0 yaw:=0 namespace:=NX04 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
+        - sleep 15
+        # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-10.0 z:=2.0 yaw:=0 namespace:=NX04 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX04 use_obstacle_tracker:=true
+        - ros2 topic echo /NX02/mid360_PointCloud2
       
       # NX05
       - shell_command:
         - sleep 10
-        - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-20.0 z:=2.0 yaw:=0 namespace:=NX05 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
+        # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-20.0 z:=2.0 yaw:=0 namespace:=NX05 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX05 use_obstacle_tracker:=true
 
       # goal sender
