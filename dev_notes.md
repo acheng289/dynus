@@ -9,4 +9,8 @@
 - as of this line, this repo/docker combination works out of the box. after starting the container with `make run-sim`, run the single agent in forest via `bash ./dynus.sh`
 - to see ros2 topics, `export ROS_DOMAIN_ID = 7`, making all panes/terminals the same
 - fake_sim is the node that moves the drone! updated state is published every 10ms. how the state is updated is very simplistic in fake_sim, here the new state and velocity is taken to be that of the set point and orientation is a function of setpoint acceleration.
-- timesynced node/subscriber that listens on state, goal. but the next state and current state exist on the same topic!
+- timesynced node/subscriber that listens on state, goal. but the next state and current state exist on the same topic! next state is computed from goal i.e. next state is a function of goal
+- `ros2 run dynus flight_data_collector_single.py --ros-args -r __ns:=/NX01`
+- for now, just pull dynus in container and rebuild before deving directly in container. abit cursed but ya.
+- need to think about reference control input. 
+- attaching volume to container with write permissions to collect data

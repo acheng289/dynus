@@ -26,8 +26,8 @@ class StateGoalCollector(Node):
         goal_nano = goal_msg.header.stamp.nanosec
         self.get_logger().info(f"sync callback wit {state_sec} and {goal_sec}")
         self.get_logger().info(f"sync callback wit {state_nano} and {goal_nano}")
-        self.get_logger().info(f"state:{state}")
-        self.get_logger().info(f"goal:{goal}")
+        self.get_logger().info(f"state:{state_msg}")
+        self.get_logger().info(f"goal:{goal_msg}")
 
 def main(args=None):
     rclpy.init(args=args)
