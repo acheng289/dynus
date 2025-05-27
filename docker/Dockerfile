@@ -78,7 +78,8 @@ ENV LD_LIBRARY_PATH="${GUROBI_HOME}/lib"
 RUN mkdir -p /home/kkondo/code/dynus_ws/src
 WORKDIR /home/kkondo/code/dynus_ws/src
 # RUN git clone https://github.com/mit-acl/dynus.git
-RUN git clone https://github.com/averageandyyy/dynus.git
+# RUN git clone https://github.com/averageandyyy/dynus.git
+RUN git clone https://github.com/acheng289/dynus.git
 WORKDIR /home/kkondo/code/dynus_ws/src/dynus
 WORKDIR /home/kkondo/code/dynus_ws/src
 RUN git clone https://kotakondo:${GIT_ACCESS_TOKEN}@github.com/kotakondo/dynus_interfaces.git

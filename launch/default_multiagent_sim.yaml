@@ -64,11 +64,11 @@ windows:
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX05 use_obstacle_tracker:=true
 
       # goal sender
-      # - shell_command:
-      #   - sleep 60 && ros2 launch dynus goal_sender.launch.py
-      # - shell_command:
-        # - sleep 30
-        # - ros2 topic pub --once /NX01/start_exploration std_msgs/msg/Empty "{}"
+      - shell_command:
+        - sleep 80 && ros2 launch dynus goal_sender.launch.py
+      - shell_command:
+        - sleep 80
+        - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02', NX03]" scene_name:='test_scene' output_dir:=/home/kkondo/data
 
       # PCL object detection (didn't work well with livox lidar)
       # - sleep 10 && ros2 launch pcl_object_detection pcl_object_detection_launch.launch.py namespace:=NX01
