@@ -83,7 +83,8 @@ WORKDIR /home/kkondo/code/dynus_ws/src/dynus
 WORKDIR /home/kkondo/code/dynus_ws/src
 RUN git clone https://kotakondo:${GIT_ACCESS_TOKEN}@github.com/kotakondo/dynus_interfaces.git
 RUN git clone https://github.com/kotakondo/octomap_mapping.git
-RUN git clone https://github.com/kotakondo/realsense_gazebo_plugin.git
+# RUN git clone https://github.com/kotakondo/realsense_gazebo_plugin.git
+RUN git clone https://github.com/acheng289/realsense_gazebo_plugin.git
 RUN git clone https://github.com/kotakondo/livox_laser_simulation_ros2.git
 RUN git clone https://github.com/kotakondo/octomap_rviz_plugins.git
 RUN git clone https://github.com/kotakondo/gazebo_ros_pkgs.git
