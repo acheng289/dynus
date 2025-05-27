@@ -16,6 +16,17 @@
 - attaching volume to container with write permissions to collect data
 - as of this line, can run easy_forest with either `dynus.sh` or `tmuxp`
 - multiagent not running atm, likely due to some memory thing, should try next work day. the fix `--ipc=host` apparently is not secure but yet to try. alternative is `-v /dev/shm:/dev/shm`
-- not memory issue. process dies (gzserver) when a second agent is launched and the realsense_camera plugin is attached to another model/plugin.
-- added some debug statements in `RealSensePlugin`, currently cameras not being initialized. Yup, even though depth cam name is unique (properly namespaced), still cannot initialize.
+
+#### 27/5/2025 Tuesday
+- not memory issue. process dies (gzserver) when a second agent is launched and the realsense_camera plugin is attached to another model/plugin, i.e., being set up for the second agent.
+- added some debug statements in `RealSensePlugin`, currently cameras not being initialized. Yup, even though depth cam name is unique (properly namespaced), still cannot initialize. note that the failure is independent of which agent gets spun up first. NX02 before NX01 means NX02 OK NX01 NOK and vice versa. a deeper problem that i don't think is worth the time to get into as of right now, especially considering the simulation's complexity.
 - to fork `realsense_ros` because the original crashes when the depth camera cannot be initialized. the current changes that i've made is such that we just proceed without a depth camera, so only have lidar. checking to see if we have that at least, yes we do.
+- can run multiagent sim setup, but takes damn long to spin up. ie NX01 spins up quick, but subsequent agents take expoenentially longer to spin up. Subsequent agents also do not have depth camera BUT have lidar and thus can still work. 
+- need to time alot of stuff together because what seemed to happen was that even though both goals published simultaneously, because NX02's lidar simulation was not set up yet, nothing happened for it. Only a decent while after NX01 reached its goal, then NX02 moved. so only publish goal after both's lidar sim is set up.
+- no proper means of visualization through rviz or gazebo. gazebo gui does not run by default but has been crashing on run, even in single sim (to check again) and thus is kinda worthless. possible to do through rviz, but means need to create/expand on existing rviz file. possible to do so programmatically since same format? i.e. require the same information to be observed.
+- camera feed is only live for the first agent. even so, latency is horrible so you can't see what's happening anyway. 
+- actual performance: not sure the reason why, but sometimes the gurobi solver fails for a long while and the agent just remains stuck. but is somehow able to resume movement after a while. is it moving after a successful recompute or did it get stuck because of resources or just doing whatever. hard to tell in rviz. 
+- successfully created means of flight data collection and visualization. static visualization of flight path using matplotlib but real-time is difficult (and worringyly impossible honestly)
+- the above has also been tried with 3 agents, but the setup time increases exponentially. have yet to try yet with obstacle_tracker as true, which ironically is the selling point of dynus, so to try that.
+- next steps: collect flight data (simultaneous, not one after the other) for 2 agents, visualize and compare with obstacle tracker on too. can also try different maps? think of funky route to stress the agents. essentially data collection/visualization phase for now? 
+- opportunity to also rewrite `macbf` in pytorch, since we cannot use the pre-trained TF version anyway (different state spaces across our cases). should have a `Scene` helper class to make life easier. 
