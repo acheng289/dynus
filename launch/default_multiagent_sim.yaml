@@ -40,7 +40,7 @@ windows:
       # NX02
       - shell_command:
         - sleep 30
-        - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=5.0 z:=3.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
+        - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=3.0 z:=3.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
       
       # NX03
       - shell_command:
@@ -60,7 +60,7 @@ windows:
       # NX05
       - shell_command:
         - sleep 70
-        - ros2 launch dynus onboard_dynus.launch.py x:=5.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
+        # - ros2 launch dynus onboard_dynus.launch.py x:=3.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX05 use_obstacle_tracker:=true
 
       # goal sender
@@ -68,7 +68,7 @@ windows:
         - sleep 80 && ros2 launch dynus goal_sender.launch.py
       - shell_command:
         - sleep 80
-        - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02', 'NX03']" scene_name:='test_scene' output_dir:=/home/kkondo/data
+        - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02']" scene_name:='test_scene' output_dir:=/home/kkondo/data
 
       # PCL object detection (didn't work well with livox lidar)
       # - sleep 10 && ros2 launch pcl_object_detection pcl_object_detection_launch.launch.py namespace:=NX01

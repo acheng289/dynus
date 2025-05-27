@@ -4,10 +4,9 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument, OpaqueFunction # Import OpaqueFunction
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
-# Define a function to generate the nodes based on resolved arguments
 def generate_nodes_from_agents(context, *args, **kwargs):
     list_agents_str = LaunchConfiguration('list_agents').perform(context)
     # Safely parse the string representation of the list
