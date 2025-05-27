@@ -13,4 +13,5 @@ run-sim:
 				--volume=/tmp/.X11-unix:/tmp/.X11-unix \
 				--volume=${PWD}/gurobi.lic:/opt/gurobi/gurobi.lic:ro \
 				--volume=/dev/shm:/dev/shm \
+				--volume=${PWD}/data:/home/kkondo/data \
 				--rm dynus:1
