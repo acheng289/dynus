@@ -62,7 +62,7 @@ def generate_launch_description():
             default_value=PathJoinSubstitution([os.getcwd(), 'scenes']), # Base directory for all scenes
             description='Root directory where all scene data will be saved'
         ),
-        DeclareLaunchLaunchArgument( # Fix: changed from DeclareLaunchArgument to DeclareLaunchLaunchArgument
+        DeclareLaunchArgument( 
             'scene_name',
             default_value=default_scene_name,
             description='Name of the current scene (e.g., "scene_01")'
