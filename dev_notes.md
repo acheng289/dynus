@@ -16,3 +16,6 @@
 - attaching volume to container with write permissions to collect data
 - as of this line, can run easy_forest with either `dynus.sh` or `tmuxp`
 - multiagent not running atm, likely due to some memory thing, should try next work day. the fix `--ipc=host` apparently is not secure but yet to try. alternative is `-v /dev/shm:/dev/shm`
+- not memory issue. process dies (gzserver) when a second agent is launched and the realsense_camera plugin is attached to another model/plugin.
+- added some debug statements in `RealSensePlugin`, currently cameras not being initialized. Yup, even though depth cam name is unique (properly namespaced), still cannot initialize.
+- to fork `realsense_ros` because the original crashes when the depth camera cannot be initialized. the current changes that i've made is such that we just proceed without a depth camera, so only have lidar. checking to see if we have that at least, yes we do.
