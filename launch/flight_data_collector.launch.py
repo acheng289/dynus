@@ -4,8 +4,45 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, OpaqueFunction # Import OpaqueFunction
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+
+# Define a function to generate the nodes based on resolved arguments
+def generate_nodes_from_agents(context, *args, **kwargs):
+    list_agents_str = LaunchConfiguration('list_agents').perform(context)
+    # Safely parse the string representation of the list
+    # Use ast.literal_eval for robust parsing of Python literals
+    import ast
+    try:
+        list_agents = ast.literal_eval(list_agents_str)
+        if not isinstance(list_agents, list):
+            raise ValueError("list_agents must be a list string.")
+    except (ValueError, SyntaxError) as e:
+        print(f"Error parsing list_agents: {list_agents_str}. Please ensure it's a valid Python list string. Error: {e}")
+        return [] # Return empty list to prevent crash
+
+
+    output_dir = LaunchConfiguration('output_dir')
+    scene_name = LaunchConfiguration('scene_name')
+
+    nodes_to_launch = []
+    for agent in list_agents:
+        nodes_to_launch.append(
+            Node(
+                package='dynus',
+                executable='flight_data_collector.py',
+                name=['flight_data_collector_', agent], # Unique name for each node
+                namespace=agent, # Set the namespace for the node
+                output='screen',
+                parameters=[{
+                    'agent_name': agent, # Pass the agent's namespace to the node for CSV naming
+                    'output_dir': output_dir, # Use LaunchConfiguration directly here
+                    'scene_name': scene_name, # Use LaunchConfiguration directly here
+                }],
+            )
+        )
+    return nodes_to_launch
+
 
 def generate_launch_description():
 
@@ -25,26 +62,12 @@ def generate_launch_description():
             default_value=PathJoinSubstitution([os.getcwd(), 'scenes']), # Base directory for all scenes
             description='Root directory where all scene data will be saved'
         ),
-        DeclareLaunchArgument(
+        DeclareLaunchLaunchArgument( # Fix: changed from DeclareLaunchArgument to DeclareLaunchLaunchArgument
             'scene_name',
             default_value=default_scene_name,
             description='Name of the current scene (e.g., "scene_01")'
         ),
 
-        # Create a list of Node actions based on list_agents
-        # This will be processed at launch time
-        Node(
-            package='dynus', # Or your package name where flight_data_collector.py resides
-            executable='flight_data_collector.py',
-            name=['flight_data_collector_', agent], # Unique name for each node
-            namespace=agent, # Set the namespace for the node
-            output='screen',
-            parameters=[{
-                'agent_name': agent, # Pass the agent's namespace to the node for CSV naming
-                'output_dir': LaunchConfiguration('output_dir'),
-                'scene_name': LaunchConfiguration('scene_name'), # Pass the scene name
-            }],
-        ) for agent in LaunchConfiguration('list_agents').perform(None).strip("[]").replace("'", "").split(', ') # Dynamically parse the list of agents
+        # Use OpaqueFunction to defer node creation until arguments are resolved
+        OpaqueFunction(function=generate_nodes_from_agents),
     ])
-
-# ros2 launch dynus flight_data_collector.launch.py list_agents="['NX01', 'NX02']" scene_name:='scene_02'

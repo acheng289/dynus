@@ -68,7 +68,7 @@ windows:
         - sleep 80 && ros2 launch dynus goal_sender.launch.py
       - shell_command:
         - sleep 80
-        - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02', NX03]" scene_name:='test_scene' output_dir:=/home/kkondo/data
+        - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02', 'NX03']" scene_name:='test_scene' output_dir:=/home/kkondo/data
 
       # PCL object detection (didn't work well with livox lidar)
       # - sleep 10 && ros2 launch pcl_object_detection pcl_object_detection_launch.launch.py namespace:=NX01
