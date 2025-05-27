@@ -39,15 +39,15 @@ windows:
       
       # NX02
       - shell_command:
-        - sleep 10
-        - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=0.0 z:=2.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
+        - sleep 30
+        - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=5.0 z:=3.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
       
       # NX03
       - shell_command:
         - sleep 15
         # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-0.0 z:=2.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX03 use_obstacle_tracker:=true
-        - ros2 topic echo /NX01/mid360_PointCloud2
+        # - ros2 topic echo /NX01/mid360_PointCloud2
 
 
       # NX04
@@ -55,12 +55,12 @@ windows:
         - sleep 15
         # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-10.0 z:=2.0 yaw:=0 namespace:=NX04 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX04 use_obstacle_tracker:=true
-        - ros2 topic echo /NX02/mid360_PointCloud2
+        # - ros2 topic echo /NX02/mid360_PointCloud2
       
       # NX05
       - shell_command:
-        - sleep 10
-        # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-20.0 z:=2.0 yaw:=0 namespace:=NX05 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance
+        - sleep 70
+        - ros2 launch dynus onboard_dynus.launch.py x:=5.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # multiagent performance
         # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX05 use_obstacle_tracker:=true
 
       # goal sender
