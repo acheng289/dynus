@@ -30,7 +30,7 @@ def generate_nodes_from_agents(context, *args, **kwargs):
         nodes_to_launch.append(
             Node(
                 package='dynus',
-                executable='flight_data_collector.py',
+                executable='flight_data_collector_single.py',
                 name=['flight_data_collector_', agent], # Unique name for each node
                 namespace=agent, # Set the namespace for the node
                 output='screen',
