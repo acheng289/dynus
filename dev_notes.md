@@ -30,3 +30,11 @@
 - the above has also been tried with 3 agents, but the setup time increases exponentially. have yet to try yet with obstacle_tracker as true, which ironically is the selling point of dynus, so to try that.
 - next steps: collect flight data (simultaneous, not one after the other) for 2 agents, visualize and compare with obstacle tracker on too. can also try different maps? think of funky route to stress the agents. essentially data collection/visualization phase for now? 
 - opportunity to also rewrite `macbf` in pytorch, since we cannot use the pre-trained TF version anyway (different state spaces across our cases). should have a `Scene` helper class to make life easier. 
+
+#### 30/5/2025 Friday
+- Made `Scene` helper class. 
+- Ported `NetworkAction` to `PyTorch`
+- Ported `NetworkCBF` to `PyTorch`
+- Ported the various loss functions to `PyTorch`
+- To further develop training loop and evaluation loop
+- Next steps: Planning and collection of flight data. Not sure how to do this efficiently especially when I cannot know how the different maps look like, gazebo gui cannot run :(
