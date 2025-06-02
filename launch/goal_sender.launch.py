@@ -46,7 +46,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'list_goals',
             # default_value="['[50.0, 20.0, 0.0]', '[50.0, 10.0, 0.0]', '[50.0, 0.0, 0.0]', '[50.0, -10.0, 0.0]', '[50.0, -20.0, 0.0]']",
-            default_value="['[50.0, 3.0, 0.0]', '[50.0, 0.0, 0.0]']",
+            default_value="['[20.0, 3.0, 0.0]', '[40.0, 0.0, 0.0]']",
             # default_value="['[35.0, 20.0, 0.0]', '[35.0, 10.0, 0.0]', '[35.0, 0.0, 0.0]', '[35.0, -10.0, 0.0]', '[35.0, -20.0, 0.0]']",
             # default_value="['[5.0, 0.0, 2.0]', '[-5.0, 0.0, 2.0]']",
             description='List of goal coordinates'
