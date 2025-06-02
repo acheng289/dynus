@@ -179,9 +179,6 @@ def generate_launch_description():
             executable='spawn_entity.py',
             name='spawn_entity',
             namespace=namespace,
-            parameters=[{
-                'use_sim_time': False,
-            }],
             arguments=['-topic', 'robot_description', '-entity', namespace, '-x', x, '-y', y, '-z', z, '-Y', yaw, '--ros-args', '--log-level', 'error'],
         )
 
