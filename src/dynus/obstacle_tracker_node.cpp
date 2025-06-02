@@ -92,7 +92,8 @@ ObstacleTrackerNode::ObstacleTrackerNode() : Node("obstacle_tracker_node")
 
     // Subscribe to PointCloud2 topic
     sub_pointcloud_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "point_cloud", 10, std::bind(&ObstacleTrackerNode::pointcloudCallback, this, std::placeholders::_1));
+        "point_cloud", rclcpp::QoS(10).best_effort(), // Explicitly set to BEST_EFFORT
+        std::bind(&ObstacleTrackerNode::pointcloudCallback, this, std::placeholders::_1));
 
     // Publish clusters and predicted positions
     pub_markers_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("tracked_obstacles", 10);
