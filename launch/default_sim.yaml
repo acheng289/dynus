@@ -72,5 +72,5 @@ windows:
       # bag recorder
       - shell_command:
         - sleep 30
-        - ros2 launch dynus flight_data_collector.py list_agents:="['NX01']" scene_name:="single_agent_no_obstacle_tracker_scene" output_dir:=/home/kkondo/data
+        - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01']" scene_name:="single_agent_no_obstacle_tracker_scene" output_dir:=/home/kkondo/data
       #   - sleep 50 && python3 /home/code/dynus_ws/src/dynus/scripts/bag_record.py --bag_number 0 --bag_path /home/code/data/bags/ --agents "['NX01', 'NX02', 'NX03', 'NX04', 'NX05']"
