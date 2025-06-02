@@ -61,10 +61,16 @@ windows:
       #   # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=-20.0 z:=2.0 yaw:=0 namespace:=NX05 use_obstacle_tracker:=true depth_camera_name:=d435 # multiagent performance (dynamic forest3)
       #   # - ros2 launch dynus onboard_dynus.launch.py x:=-35.0 y:=-20.0 z:=2.0 yaw:=0 namespace:=NX05 use_obstacle_tracker:=false depth_camera_name:=d435 # multiagent performance (high res forest)
 
-      # # goal sender
-      # - shell_command:
-      #   - sleep 60 && ros2 launch dynus goal_sender.launch.py
+      # goal sender
+      - shell_command:
+        - sleep 1
 
-      # # bag recorder
-      # - shell_command:
+      - shell_command:
+        - sleep 30
+        - ros2 topic echo /NX01/state
+
+      # bag recorder
+      - shell_command:
+        - sleep 30
+        - ros2 launch dynus flight_data_collector.py list_agents:="['NX01']" scene_name:="single_agent_no_obstacle_tracker_scene" output_dir:=/home/kkondo/data
       #   - sleep 50 && python3 /home/code/dynus_ws/src/dynus/scripts/bag_record.py --bag_number 0 --bag_path /home/code/data/bags/ --agents "['NX01', 'NX02', 'NX03', 'NX04', 'NX05']"
