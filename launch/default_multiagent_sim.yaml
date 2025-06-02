@@ -65,6 +65,7 @@ windows:
       - shell_command:
         - sleep 40
         - ros2 launch dynus goal_sender.launch.py list_agents:="['NX01', 'NX02', 'NX03']" list_goals:="['[60.0, 8.0, 0.0]', '[60.0, -9.0, 0.0]', '[65.0, -0.5, 0.0]']"
+        - # ros2 launch dynus random_waypoints_sender.launch.py list_agents:="['NX01', 'NX02', 'NX03']" x_min:=60.0 x_max:=80.0 y_min:=-15.0 y_max:=15.0 z_min:=2.0 z_max:=3.0 goal_tolerance:=1.0 num_waypoints:=3
       - shell_command:
         - sleep 40
         - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02', 'NX03']" scene_name:='three_agents_obs_track_easy_forest_0' output_dir:=/home/kkondo/data
