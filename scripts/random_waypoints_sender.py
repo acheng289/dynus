@@ -100,9 +100,12 @@ class RandomWaypointsSender(Node):
         # Check if the drone has reached the current goal
         if distance < self.goal_tolerance:
             self.get_logger().info(f"[{agent_name}] Goal {current_waypoint_index} reached!")
-            # Move to the next waypoint, loop if all waypoints are visited
-            agent_info['current_waypoint_index'] = (current_waypoint_index + 1) % len(waypoints)
-            self.get_logger().info(f"[{agent_name}] Moving to next waypoint: {agent_info['waypoints'][agent_info['current_waypoint_index']]}")
+            # Move to the next waypoint if not the last one
+            if current_waypoint_index < len(waypoints) - 1:
+                agent_info['current_waypoint_index'] += 1
+                self.get_logger().info(f"[{agent_name}] Moving to next waypoint: {agent_info['waypoints'][agent_info['current_waypoint_index']]}")
+            else:
+                self.get_logger().info(f"[{agent_name}] All waypoints completed. Staying at the last waypoint.")
 
     def publish_term_goal(self, agent_name: str):
         """Publishes the current goal as a PoseStamped message for a specific agent."""
