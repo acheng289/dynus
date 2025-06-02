@@ -15,52 +15,52 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'num_waypoints',
-            default_value=5,
+            default_value='5',
             description='Number of random waypoints to generate for each agent'
         ),
         DeclareLaunchArgument(
             'x_min',
-            default_value=0.0,
+            default_value='0.0',
             description='Minimum X coordinate for random waypoints'
         ),
         DeclareLaunchArgument(
             'x_max',
-            default_value=100.0,
+            default_value='100.0',
             description='Maximum X coordinate for random waypoints'
         ),
         DeclareLaunchArgument(
             'y_min',
-            default_value=-50.0,
+            default_value='-50.0',
             description='Minimum Y coordinate for random waypoints'
         ),
         DeclareLaunchArgument(
             'y_max',
-            default_value=50.0,
+            default_value='50.0',
             description='Maximum Y coordinate for random waypoints'
         ),
         DeclareLaunchArgument(
             'z_min',
-            default_value=1.0,
+            default_value='1.0',
             description='Minimum Z coordinate for random waypoints'
         ),
         DeclareLaunchArgument(
             'z_max',
-            default_value=10.0,
+            default_value='10.0',
             description='Maximum Z coordinate for random waypoints'
         ),
         DeclareLaunchArgument(
             'goal_tolerance',
-            default_value=1e-6,
+            default_value='1e-6',
             description='Distance tolerance to consider a goal reached'
         ),
         DeclareLaunchArgument(
             'distance_check_frequency',
-            default_value=1.0,
+            default_value='1.0',
             description='Frequency (Hz) to check the distance to the goal'
         ),
         DeclareLaunchArgument(
             'publish_frequency',
-            default_value=1.0,
+            default_value='1.0',
             description='Frequency (Hz) to publish the current term goal'
         ),
 
