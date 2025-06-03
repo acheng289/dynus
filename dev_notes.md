@@ -51,3 +51,19 @@
 - dynus actually fails sometimes and the uav just gets stuck and refuses to move, i think it might be the environment. sometimes it fixes itself sometimes it doesnt.
 - for tomorrow, we work on the training and eval pipeline first and try to go through these pieces of data first, just to see that it works. after that if time permits we collect data on office and exploration. comments seem to suggest that exploration starts out the box, but we might need to make a publish call or something.
 - there are two goal sender calls we can consider in the dynus readme. forest3 and high res forest. also see how we can modify docker multiagent sim to collect this. i think data collection might just end there
+
+#### 3/6/2025 Tuesday
+- Implemented training script in `macbf-torch`
+- Key learning points: Without `detach`, `current_state`'s history continues to grow (i.e. it is a function of/linked to the `current_state`s that came before it) and thus gradient computation has to traverse through this entire history. `backward` only clears the history between `loss` and `current_state`, not `current_state`'s growing history!
+- Also noticed that in original TF implementation, gradients were accumulated and averaged. Made the same change here.
+- Made eval script too. currently only supports one scene at a time for sanity. if okay then we make it take more at once.
+- The default `dynus.yaml` has `terminal_goal` and `use_frontiers` which is not supposed to be true. For ease of use, we can use the `easy_forest_param.yaml` to run in the `forest3` environment
+- 1200% CPU usage according to docker for sim when collecting data for 3 agents
+- Collected some data in `forest3`
+- Training seems to be correct but slow, going at ~130it/s right now. Before the `detach` fix, was ~3it/s, something to be happy about i guess. 
+- Across both implementations (PyTorch/TF), they are training scene by scene i.e. flight path by flight path. Is it possible for us to batch and train across scenes in parallel? Right now, a scene is `TxNxs`. Adding a batch dimension would give us `BxTxNxS` where `B` is batch, `T` is timesteps, `N` is number of agents and `S` is state. 
+- Indexing into a particular `T` yields `BxNxS`. Semantically that means state per scene at that particular time. Issue of padding all scenes to be of the same length/timestep duration. 
+- Even if we can pad, I think that's the least of our problems. What does it semantically then make sense to put `BxNxS` through the network. Mask computations? In theory, I think might be able to do? But is it worth? What are the drawbacks? When we pad, we actually pad the last entry to simulate hovering when goal reached. Issue with this right now is that the model might overfit to controller adherence and lesser CBF satisfaction because we don't have sufficiently dangerous states for the model to learn how to deal with that
+- Which brings me to my next observation as well, currently danger losses are quite close to zero because my collected scenes at the start when I was just trying out unfortunately didnt have the agents close to another, so they were actually in safe states most of the time.
+- But to combat this, i've written a `random_waypoints_sender` which publishes goals within a defined cube/cuboid, to hopefully increase the chance of danger states. sometimes run into the problem of dynus freezing though and the drones stop moving. some luck involved i guess. 
+- tomorrow should be the last day of data collection, any more and we'll never train finish haha. perhaps quality over quantity. today's `forest3` scenes should be usable. maybe just 3 more boxed movements and we stop there. 
