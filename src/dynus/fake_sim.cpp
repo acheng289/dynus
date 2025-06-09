@@ -94,7 +94,7 @@ public:
 
         // Timer to simulate TF broadcast
         // Not sure buf calling TF periodically suffers from latency
-        timer_ = this->create_wall_timer(10ms, std::bind(&FakeSim::pubCallback, this), cb_group_me_1_);
+        timer_ = this->create_wall_timer(100ms, std::bind(&FakeSim::pubCallback, this), cb_group_me_1_);
         if (use_ground_robot_)
             timer_->cancel(); // if we are using ground robot in gazebo, TF will be published by the robot's gazebo_ros_diff_drive plugin
 
