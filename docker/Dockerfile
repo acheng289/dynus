@@ -69,6 +69,8 @@ RUN apt install -y  ros-${ROS_DISTRO}-desktop \
                         build-essential
                         # ros-${ROS_DISTRO}-gazebo-ros-pkgs \
 
+RUN pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+
 # Install Gazebo for the suitable ROS version
 # RUN curl -sSL http://get.gazebosim.org | sh
 
@@ -94,7 +96,10 @@ RUN mkdir -p /home/kkondo/code/dynus_ws/src
 WORKDIR /home/kkondo/code/dynus_ws/src
 # RUN git clone https://github.com/mit-acl/dynus.git
 # RUN git clone https://github.com/averageandyyy/dynus.git
+
 RUN git clone https://github.com/acheng289/dynus.git
+RUN git clone https://github.com/acheng289/macbf-torch.git
+
 WORKDIR /home/kkondo/code/dynus_ws/src/dynus
 WORKDIR /home/kkondo/code/dynus_ws/src
 RUN git clone https://kotakondo:${GIT_ACCESS_TOKEN}@github.com/kotakondo/dynus_interfaces.git
