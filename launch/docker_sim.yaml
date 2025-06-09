@@ -45,7 +45,7 @@ windows:
       
       - shell_command:
         - sleep 30
-        - ros2 launch macbf-torch mac_sim.launch.py start_yaw:=45.0 start_pose:="[0.0, 0.0, 3.0]" all_agents:="['NX01']" self_agent:=NX01 model_weight_file:=long.pth
+        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=45.0 start_pose:="[0.0, 0.0, 3.0]" all_agents:="['NX01']" self_agent:=NX01 model_weight_file:=long.pth
 
       # bag recorder
       - shell_command:

@@ -331,7 +331,7 @@ def generate_launch_description():
             elif use_hardware and not use_onboard_localization:
                 nodes_to_start = [dynus_node, pose_twist_to_state_node, dynus_command_node] # use Vicon for localization
             else:
-                nodes_to_start = [dynus_node, robot_state_publisher_node, spawn_entity_node, dynus_command_node, fake_sim_node] # simulation
+                nodes_to_start = [dynus_node, robot_state_publisher_node, spawn_entity_node, dynus_command_node, ] # simulation
         else:
             nodes_to_start = [dynus_node, dynus_command_node, quadruped_odom_to_state_node]
 
