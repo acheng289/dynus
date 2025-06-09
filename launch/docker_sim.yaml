@@ -1,13 +1,16 @@
 session_name: multiagent_sim
+global_options:
+  mouse: true
 windows:
   - window_name: main
     layout: tiled
     shell_command_before:
-      - source /home/code/dynus_ws/install/setup.bash # TODO: hard-coded path
-      - export ROS_DOMAIN_ID=101
+      - source /usr/share/gazebo/setup.bash
+      - source /home/kkondo/code/dynus_ws/install/setup.bash
+      - export ROS_DOMAIN_ID=7
     panes:
       # base station
-      - ros2 launch dynus base_dynus.launch.py use_dyn_obs:=false use_gazebo_gui:=false use_rviz:=false use_ground_robot:=false benchmark_name:=benchmark2
+      - ros2 launch dynus base_dynus.launch.py use_dyn_obs:=false use_gazebo_gui:=false use_rviz:=true use_ground_robot:=false benchmark_name:=benchmark2 env:=easy_forest
 
       - shell_command:
         - sleep 10
@@ -16,7 +19,7 @@ windows:
         # - ros2 launch dynus onboard_dynus.launch.py x:=2.5 y:=-4.0 z:=1.0 yaw:=90 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # for static_uncertainty_test3
         # - ros2 launch dynus onboard_dynus.launch.py x:=4.0 y:=0.0 z:=3.0 yaw:=90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # for static_uncertainty_test4
         # - ros2 launch dynus onboard_dynus.launch.py x:=30.0 y:=10.0 z:=1.5 yaw:=90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # for office (same start position as faster paper)
-        - ros2 launch dynus onboard_dynus.launch.py x:=8.0 y:=0.0 z:=1.5 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # for office
+        - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 env:=easy_forest # for office
         # - ros2 launch dynus onboard_dynus.launch.py x:=8.0 y:=0.0 z:=1.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # cave (simple_tunnel start)
         # - ros2 launch dynus onboard_dynus.launch.py x:=120.0 y:=-50.0 z:=-4.0 yaw:=-90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # cave (simple_tunnel right before the vertial wall)
         # - ros2 launch dynus onboard_dynus.launch.py x:=80.0 y:=30.0 z:=1.0 yaw:=90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # cave (simple_tunnel right before person)
@@ -38,8 +41,12 @@ windows:
       
       # goal sender
       - shell_command:
-        - sleep 30 && ros2 launch dynus goal_sender.launch.py list_agents:="['NX01']" list_goals:="['[36.0, 42.0, 2.0]']" default_goal_z:=1.5 # for office
+        # - sleep 30 && ros2 launch dynus goal_sender.launch.py list_agents:="['NX01']" list_goals:="['[36.0, 42.0, 2.0]']" default_goal_z:=1.5 # for office
+      
+      - shell_command:
+        - sleep 30
+        - ros2 launch macbf-torch mac_sim.launch.py start_yaw:=45.0 start_pose:="[0.0, 0.0, 3.0]" all_agents:="['NX01']" self_agent:=NX01 model_weight_file:=long.pth
 
       # bag recorder
       - shell_command:
-        - sleep 20 && python3 /home/code/dynus_ws/src/dynus/scripts/bag_record.py --bag_number 0 --bag_path /home/code/data/bags/ --agents "['NX01']"
+        # - sleep 20 && python3 /home/code/dynus_ws/src/dynus/scripts/bag_record.py --bag_number 0 --bag_path /home/code/data/bags/ --agents "['NX01']"
