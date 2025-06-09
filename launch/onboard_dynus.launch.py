@@ -195,18 +195,18 @@ def generate_launch_description():
         # When using ground robot, we don't need to send the exact state to gazebo - the state will be taken care of by wheel controllers
         send_state_to_gazebo = False if use_ground_robot else True
         # Create a fake sim node
-        # fake_sim_node = Node(
-        #             package='dynus',
-        #             executable='fake_sim',
-        #             name='fake_sim',
-        #             namespace=namespace,
-        #             emulate_tty=True,
-        #             parameters=[{"start_pos": [float(x), float(y), float(z)], 
-        #                          "start_yaw": float(yaw),
-        #                          "send_state_to_gazebo": send_state_to_gazebo,
-        #                          "use_ground_robot": use_ground_robot,
-        #                          "visual_level": parameters['visual_level']}],
-        # )
+        fake_sim_node = Node(
+                    package='dynus',
+                    executable='fake_sim',
+                    name='fake_sim',
+                    namespace=namespace,
+                    emulate_tty=True,
+                    parameters=[{"start_pos": [float(x), float(y), float(z)], 
+                                 "start_yaw": float(yaw),
+                                 "send_state_to_gazebo": send_state_to_gazebo,
+                                 "use_ground_robot": use_ground_robot,
+                                 "visual_level": parameters['visual_level']}],
+        )
         
         # Create an obstacle tracker node
         obstacle_tracker_node = Node(
@@ -331,7 +331,7 @@ def generate_launch_description():
             elif use_hardware and not use_onboard_localization:
                 nodes_to_start = [dynus_node, pose_twist_to_state_node, dynus_command_node] # use Vicon for localization
             else:
-                nodes_to_start = [dynus_node, robot_state_publisher_node, spawn_entity_node, dynus_command_node, ] # simulation
+                nodes_to_start = [dynus_node, robot_state_publisher_node, spawn_entity_node, dynus_command_node, fake_sim_node] # simulation
         else:
             nodes_to_start = [dynus_node, dynus_command_node, quadruped_odom_to_state_node]
 
