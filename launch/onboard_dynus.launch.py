@@ -195,18 +195,18 @@ def generate_launch_description():
         # When using ground robot, we don't need to send the exact state to gazebo - the state will be taken care of by wheel controllers
         send_state_to_gazebo = False if use_ground_robot else True
         # Create a fake sim node
-        fake_sim_node = Node(
-                    package='dynus',
-                    executable='fake_sim',
-                    name='fake_sim',
-                    namespace=namespace,
-                    emulate_tty=True,
-                    parameters=[{"start_pos": [float(x), float(y), float(z)], 
-                                 "start_yaw": float(yaw),
-                                 "send_state_to_gazebo": send_state_to_gazebo,
-                                 "use_ground_robot": use_ground_robot,
-                                 "visual_level": parameters['visual_level']}],
-        )
+        # fake_sim_node = Node(
+        #             package='dynus',
+        #             executable='fake_sim',
+        #             name='fake_sim',
+        #             namespace=namespace,
+        #             emulate_tty=True,
+        #             parameters=[{"start_pos": [float(x), float(y), float(z)], 
+        #                          "start_yaw": float(yaw),
+        #                          "send_state_to_gazebo": send_state_to_gazebo,
+        #                          "use_ground_robot": use_ground_robot,
+        #                          "visual_level": parameters['visual_level']}],
+        # )
         
         # Create an obstacle tracker node
         obstacle_tracker_node = Node(

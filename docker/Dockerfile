@@ -37,7 +37,7 @@ RUN apt install -y x11-apps
 RUN apt install -y qtbase5-dev-tools libqt5gui5 libqt5widgets5
 
 RUN apt-get update && apt-get install -y \
-      python-pip
+      python3-pip
 
 # Making directories and setting up the environment
 ##########################################
