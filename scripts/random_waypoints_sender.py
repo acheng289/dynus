@@ -24,6 +24,7 @@ class RandomWaypointsSender(Node):
         self.declare_parameter('goal_tolerance', 0.5)
         self.declare_parameter('distance_check_frequency', 1.0)
         self.declare_parameter('publish_frequency', 1.0)
+        self.declare_parameter('stuck_time_threshold', 5.0)
 
         # Get parameters
         self.list_agents = self.get_parameter('list_agents').value
@@ -37,6 +38,7 @@ class RandomWaypointsSender(Node):
         self.goal_tolerance = self.get_parameter('goal_tolerance').value
         self.distance_check_frequency = self.get_parameter('distance_check_frequency').value
         self.publish_frequency = self.get_parameter('publish_frequency').value
+        self.stuck_time_threshold = self.get_parameter('stuck_time_threshold').value
 
         self.get_logger().info(f"Agents: {self.list_agents}")
         self.get_logger().info(f"Number of waypoints per agent: {self.num_waypoints}")
@@ -95,6 +97,35 @@ class RandomWaypointsSender(Node):
             (current_pos.z - goal_z) ** 2
         )
 
+        # Initialize stuck parameters if they don't exist
+        if 'previous_distance' not in agent_info:
+            agent_info['previous_distance'] = distance
+            agent_info['stuck_start_time'] = self.get_clock().now()
+            return  # Skip the first check
+
+        # Check if the drone has been stuck
+        if abs(distance - agent_info['previous_distance']) < 0.1:  # Define a small threshold for "stuck"
+            if 'stuck_start_time' not in agent_info:
+                agent_info['stuck_start_time'] = self.get_clock().now()
+            else:
+                time_since_stuck = (self.get_clock().now() - agent_info['stuck_start_time']).to_msg().nanosec / 1e9
+                if time_since_stuck > self.stuck_time_threshold:
+                    self.get_logger().warn(f"[{agent_name}] Agent is stuck! Moving to next waypoint.")
+                    # Move to the next waypoint if not the last one
+                    if current_waypoint_index < len(waypoints) - 1:
+                        agent_info['current_waypoint_index'] += 1
+                        self.get_logger().info(f"[{agent_name}] Moving to next waypoint: {agent_info['waypoints'][agent_info['current_waypoint_index']]}")
+                    else:
+                        self.get_logger().info(f"[{agent_name}] All waypoints completed. Staying at the last waypoint.")
+                    # Reset stuck parameters
+                    agent_info['stuck_start_time'] = self.get_clock().now()
+                    agent_info['previous_distance'] = distance  # Update previous distance
+                    return
+        else:
+            # Reset stuck parameters if the drone is moving
+            agent_info['stuck_start_time'] = self.get_clock().now()
+
+        agent_info['previous_distance'] = distance
         self.get_logger().info(f"[{agent_name}] Distance to goal {current_waypoint_index}: {distance:.2f}")
 
         # Check if the drone has reached the current goal
@@ -106,6 +137,8 @@ class RandomWaypointsSender(Node):
                 self.get_logger().info(f"[{agent_name}] Moving to next waypoint: {agent_info['waypoints'][agent_info['current_waypoint_index']]}")
             else:
                 self.get_logger().info(f"[{agent_name}] All waypoints completed. Staying at the last waypoint.")
+            agent_info['stuck_start_time'] = self.get_clock().now()
+            agent_info['previous_distance'] = distance
 
     def publish_term_goal(self, agent_name: str):
         """Publishes the current goal as a PoseStamped message for a specific agent."""
