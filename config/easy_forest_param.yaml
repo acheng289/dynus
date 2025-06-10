@@ -138,7 +138,7 @@ dynus_node:
         optimization_type: "hard"                   # ["hard", "soft_without_check", "soft_with_check"]
         use_ref_points: true                       # [-] Use reference points in the QP optimization. If using MIQP, this will be ignored.
         num_ref_sample_points: 5                    # [-] Number of reference sample points
-        dc: 0.1 # 0.01                                    # [s] Duration for the interpolation=Value of the timer pubGoal
+        dc: 0.01                                    # [s] Duration for the interpolation=Value of the timer pubGoal
         v_max: 10.0                                  # [m/s]  max velocity
         a_max: 20.0                                  # [m/s2] max acceleration
         j_max: 30.0                                  # [m/s3] max jerk
