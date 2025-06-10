@@ -100,8 +100,9 @@ WORKDIR /home/kkondo/code/dynus_ws/src
 # RUN git clone https://github.com/mit-acl/dynus.git
 # RUN git clone https://github.com/averageandyyy/dynus.git
 
-RUN git clone https://github.com/acheng289/dynus.git
+RUN echo ""
 RUN git clone https://github.com/acheng289/macbf-torch.git
+RUN git clone https://github.com/acheng289/dynus.git
 
 WORKDIR /home/kkondo/code/dynus_ws/src/dynus
 WORKDIR /home/kkondo/code/dynus_ws/src
@@ -121,6 +122,8 @@ WORKDIR /home/kkondo/code/livox_ws/src
 RUN git clone https://github.com/kotakondo/livox_ros_driver2.git
 WORKDIR /home/kkondo/code
 RUN git clone https://github.com/Livox-SDK/Livox-SDK2.git
+
+# RUN pip3 install -U setuptools
 
 # Build the workspace
 ##########################################
