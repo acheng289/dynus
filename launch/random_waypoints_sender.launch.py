@@ -64,9 +64,9 @@ def generate_launch_description():
             description='Frequency (Hz) to publish the current term goal'
         ),
         DeclareLaunchArgument(
-            'stuck_time_threshold',
-            default_value='5.0',
-            description='Time (seconds) before considering the agent stuck'
+            'stuck_count_threshold',
+            default_value='5',
+            description='Number of distance checks before considering the agent stuck'
         ),
 
         # Launch the RandomWaypointsSender node
@@ -87,7 +87,7 @@ def generate_launch_description():
                 'goal_tolerance': LaunchConfiguration('goal_tolerance'),
                 'distance_check_frequency': LaunchConfiguration('distance_check_frequency'),
                 'publish_frequency': LaunchConfiguration('publish_frequency'),
-                'stuck_time_threshold': LaunchConfiguration('stuck_time_threshold'),
+                'stuck_count_threshold': LaunchConfiguration('stuck_count_threshold'),
             }]
         ),
     ])
