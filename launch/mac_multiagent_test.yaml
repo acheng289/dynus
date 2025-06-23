@@ -10,61 +10,73 @@ windows:
       - export ROS_DOMAIN_ID=7
     panes:
       # base station
-      - ros2 launch dynus base_dynus.launch.py use_dyn_obs:=false use_gazebo_gui:=true use_rviz:=true use_ground_robot:=false benchmark_name:=benchmark2 env:=easy_forest
+      - ros2 launch dynus base_dynus.launch.py use_dyn_obs:=false use_gazebo_gui:=true use_rviz:=true use_ground_robot:=false benchmark_name:=benchmark2 env:=forest3
 
+      # NX01
       - shell_command:
         - sleep 10
-        # - ros2 launch dynus onboard_dynus.launch.py x:=-35.0 y:=0.0 z:=1.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # for high res forest
-        # - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=10.0 z:=3.0 yaw:=-90 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # for static_uncertainty_test2
-        # - ros2 launch dynus onboard_dynus.launch.py x:=2.5 y:=-4.0 z:=1.0 yaw:=90 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # for static_uncertainty_test3
-        # - ros2 launch dynus onboard_dynus.launch.py x:=4.0 y:=0.0 z:=3.0 yaw:=90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # for static_uncertainty_test4
-        # - ros2 launch dynus onboard_dynus.launch.py x:=30.0 y:=10.0 z:=1.5 yaw:=90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # for office (same start position as faster paper)
-        # - ros2 launch dynus onboard_dynus.launch.py x:=13.0 y:=2.5 z:=1.5 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # for office
-        # - ros2 launch dynus onboard_dynus.launch.py x:=8.0 y:=0.0 z:=1.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # cave (simple_tunnel start)
-        # - ros2 launch dynus onboard_dynus.launch.py x:=120.0 y:=-50.0 z:=-4.0 yaw:=-90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # cave (simple_tunnel right before the vertial wall)
-        # - ros2 launch dynus onboard_dynus.launch.py x:=80.0 y:=30.0 z:=1.0 yaw:=90 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # cave (simple_tunnel right before person)
-        # - ros2 launch dynus onboard_dynus.launch.py x:=-50.0 y:=0.0 z:=2.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=false depth_camera_name:=d435 # forest3
-        # - ros2 launch dynus onboard_dynus.launch.py x:=-30.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # yaw benchmarking in empty space
-        # - ros2 launch dynus onboard_dynus.launch.py x:=0.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # global planner benchmarking
-        - ros2 launch dynus onboard_dynus_mac.launch.py x:=0.0 y:=-5.0 z:=3.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
-        # - ros2 launch dynus onboard_dynus.launch.py x:=-5.0 y:=6.0 z:=1.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 # ACL_office
-        # - ros2 launch dynus onboard_dynus.launch.py x:=-45.0 y:=0.0 z:=0.0 yaw:=0 namespace:=NX01 use_ground_robot:=true # ground robot
-      # - shell_command:
-      #   - sleep 10
-      #   - conda activate yolo
-      #   - ros2 launch dynus object_detection.launch.py
-      # - shell_command: # DLIO
-      #   - sleep 15
-      #   - ros2 launch direct_lidar_inertial_odometry dlio.launch.py rviz:=false pointcloud_topic:=/NX01/mid360_PointCloud2 imu_topic:=/NX01_livox_imu/out namespace:=NX01
+        - ros2 launch dynus onboard_dynus_mac.launch.py x:=-50.0 y:=30.0 z:=2.0 yaw:=0 namespace:=NX01 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
       
       # NX02
       - shell_command:
-        - sleep 20
-        - ros2 launch dynus onboard_dynus_mac.launch.py x:=0.0 y:=5.0 z:=3.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
+        - sleep 30
+        - ros2 launch dynus onboard_dynus_mac.launch.py x:=-50.0 y:=15.0 z:=2.0 yaw:=0 namespace:=NX02 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
       
       # NX03
       - shell_command:
-        - sleep 30
-        # - ros2 launch dynus onboard_dynus_mac.launch.py x:=0.0 y:=0.0 z:=3.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
-        # - ros2 launch dynus onboard_dynus.launch.py x:=35.0 y:=10.0 z:=4.0 namespace:=NX03 use_obstacle_tracker:=true
-        # - ros2 topic echo /NX01/mid360_PointCloud2
+        - sleep 50
+        - ros2 launch dynus onboard_dynus_mac.launch.py x:=-50.0 y:=0.0 z:=2.0 yaw:=0 namespace:=NX03 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
 
+      # NX04
+      - shell_command:
+        - sleep 70
+        - ros2 launch dynus onboard_dynus_mac.launch.py x:=-50.0 y:=-15.0 z:=2.0 yaw:=0 namespace:=NX04 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
+
+      # NX05
+      - shell_command:
+        - sleep 90
+        - ros2 launch dynus onboard_dynus_mac.launch.py x:=-50.0 y:=-30.0 z:=2.0 yaw:=0 namespace:=NX05 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
+
+      # NX06
+      - shell_command:
+        - sleep 110
+        - ros2 launch dynus onboard_dynus_mac.launch.py x:=-50.0 y:=-45.0 z:=2.0 yaw:=0 namespace:=NX06 use_obstacle_tracker:=true depth_camera_name:=d435 env:=easy_forest # multiagent performance
 
       # NX01 controller
       - shell_command:
         - sleep 15
-        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[0.0, -5.0, 3.0]" all_agents:="['NX01', 'NX02']" self_agent:=NX01 model_weight_file:=long.pth
+        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[-50.0, 30.0, 2.0]" all_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" self_agent:=NX01 model_weight_file:=high_lr.pth
       
       # NX02 controller
       - shell_command:
-        - sleep 25
-        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[0.0, 5.0, 3.0]" all_agents:="['NX01', 'NX02']" self_agent:=NX02 model_weight_file:=long.pth
+        - sleep 35
+        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[-50.0, 15.0, 2.0]" all_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" self_agent:=NX02 model_weight_file:=high_lr.pth
+
+      # NX03 controller
+      - shell_command:
+        - sleep 55
+        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[-50.0, 0.0, 2.0]" all_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" self_agent:=NX03 model_weight_file:=high_lr.pth
+
+      # NX04 controller
+      - shell_command:
+        - sleep 75
+        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[-50.0, -15.0, 2.0]" all_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" self_agent:=NX04 model_weight_file:=high_lr.pth
+      
+      # NX05 controller
+      - shell_command:
+        - sleep 95
+        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[-50.0, -30.0, 2.0]" all_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" self_agent:=NX05 model_weight_file:=high_lr.pth
+
+      # NX06 controller
+      - shell_command:
+        - sleep 115
+        - ros2 launch macbf_torch mac_sim.launch.py start_yaw:=0.0 start_pose:="[-50.0, -45.0, 2.0]" all_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" self_agent:=NX06 model_weight_file:=high_lr.pth
 
       # goal sender
       - shell_command:
-        - sleep 40
-        - ros2 launch dynus goal_sender.launch.py list_agents:="['NX01', 'NX02']" list_goals:="['[60.0, 8.0, 0.0]', '[60.0, -9.0, 0.0]']"
-        - # ros2 launch dynus random_waypoints_sender.launch.py list_agents:="['NX01', 'NX02', 'NX03']" x_min:=60.0 x_max:=80.0 y_min:=-15.0 y_max:=15.0 z_min:=2.0 z_max:=3.0 goal_tolerance:=1.0 num_waypoints:=3
+        - sleep 150
+        # - ros2 launch dynus goal_sender.launch.py list_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" list_goals:="['[60.0, 8.0, 0.0]', '[60.0, -9.0, 0.0]', '[60.0, 11.0, 0.0]', '[60.0, -11.0, 0.0]', '[60.0, 13.0, 0.0]', '[60.0, -13.0, 0.0]']"
+        # - ros2 launch dynus random_waypoints_sender.launch.py list_agents:="['NX01', 'NX02', 'NX03']" x_min:=60.0 x_max:=80.0 y_min:=-15.0 y_max:=15.0 z_min:=2.0 z_max:=3.0 goal_tolerance:=1.0 num_waypoints:=3
       - shell_command:
-        - sleep 40
-        - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02']" scene_name:='two_agents_easy_forest_mac' output_dir:=/home/kkondo/data
+        - sleep 150
+        # - ros2 launch dynus flight_data_collector.launch.py list_agents:="['NX01', 'NX02', 'NX03', 'NX04', 'NX05', 'NX06']" scene_name:='six_agents_forest3_mac' output_dir:=/home/kkondo/data
